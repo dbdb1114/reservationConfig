@@ -38,5 +38,5 @@ spring:
             - Path=/api/v1/order-service/**
 
 token:
-  expiration_time: 864
+  expiration_time: 86400000
   secret: "01234567890123456789012345678901234567890123456789"
