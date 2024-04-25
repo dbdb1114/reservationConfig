@@ -1,0 +1,42 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/v1/member-service/login #???
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/v1/member-service/(?<segment>.*), /$\{segment}
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/v1/member-service/join/** #????
+            - Method=PUT,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/v1/member-service/(?<segment>.*), /$\{segment}
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/v1/member-service/**
+            - Method=GET,PUT,POST,DELETE
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/v1/member-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/product-service/**
+            - Method=GET
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/v1/order-service/**
+
+token:
+  expiration_time: 86400000
+  secret: "01234567890123456789012345678901234567890123456789"
