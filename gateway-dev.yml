@@ -32,6 +32,9 @@ spring:
           predicates:
             - Path=/api/v1/product-service/**
             - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/v1/product-service/(?<segment>.*), /$\{segment}
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
