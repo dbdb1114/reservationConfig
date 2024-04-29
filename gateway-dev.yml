@@ -38,11 +38,11 @@ spring:
         - id: product-service
           uri: lb://PRODUCT-SERVICE
           predicates:
-            - Path=/api/v1/wish/**
+            - Path=/api/v1/product-service/wish/**
             - Method=POST,GET
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/api/v1/(?<segment>.*), /$\{segment}
+            - RewritePath=/api/v1/product-service/(?<segment>.*), /$\{segment}
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
