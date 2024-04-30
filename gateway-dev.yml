@@ -89,7 +89,7 @@ spring:
             - Path=/api/v1/order-service/**
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/api/v1/product-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/api/v1/order-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
 
 token:
