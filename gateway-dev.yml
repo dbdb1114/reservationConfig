@@ -48,7 +48,7 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/v1/order-service/**
-            - Method=POST,GET,PUT
+            - Method=POST,GET,PUT,PATCH
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/api/v1/order-service/(?<segment>.*), /$\{segment}
