@@ -5,6 +5,15 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
+            - Path=/api/v1/member-service/**
+            - Method=PUT,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/v1/member-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
             - Path=/api/v1/member-service/login
             - Method=POST
           filters:
@@ -18,15 +27,6 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/api/v1/member-service/(?<segment>.*), /$\{segment}
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
-          predicates:
-            - Path=/api/v1/member-service/**
-            - Method=PUT,POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/api/v1/member-service/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
         - id: product-service
           uri: lb://PRODUCT-SERVICE
           predicates:
