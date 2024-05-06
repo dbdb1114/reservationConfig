@@ -5,7 +5,7 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/api/v1/member-service/login #???
+            - Path=/api/v1/member-service/login
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
@@ -13,7 +13,7 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/api/v1/member-service/join/** #????
+            - Path=/api/v1/member-service/join/**
             - Method=PUT,POST
           filters:
             - RemoveRequestHeader=Cookie
