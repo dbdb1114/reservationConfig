@@ -53,6 +53,23 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/api/v1/order-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
+        - id: stock-service
+          uri: lb://STOCK-SERVICE
+          predicates:
+            - Path=/api/v1/stock-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/v1/stock-service/(?<segment>.*), /$\{segment}
+        - id: stock-service
+          uri: lb://STOCK-SERVICE
+          predicates:
+            - Path=/api/v1/stock-service/**
+            - Method=PUT,POST,PATCH
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/api/v1/stock-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
 
 token:
   expiration_time: 86400000
